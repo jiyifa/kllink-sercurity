@@ -26,7 +26,7 @@ public class UseControllerTest {
     }
     @Test
     public void whenQuerySuccess() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/user")
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/user")
                 .param("username","jojo")
                 .param("age","18")
                 .param("ageTo","60")
@@ -36,14 +36,18 @@ public class UseControllerTest {
 //                .param("sort","age,desc")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(result);
     }
     @Test
     public void  whenGenInfoSuccess() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/1")
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/user/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("tom"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("tom"))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(result);
     }
     @Test
     public void whenGetInfoFail() throws Exception {
