@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    @RequestMapping(value = "/user",method = RequestMethod.GET)
+    @GetMapping("/user")
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition condition,@PageableDefault(page=2,size = 17,sort = "username,asc") Pageable pageable){
         System.out.println(ReflectionToStringBuilder.toString(condition, ToStringStyle.MULTI_LINE_STYLE));
@@ -29,7 +29,7 @@ public class UserController {
         users.add(new User());
         return users;
     }
-    @RequestMapping(value = "/user/{id:\\d+}",method = RequestMethod.GET)
+    @GetMapping("/user/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id){
         User user = new User();
