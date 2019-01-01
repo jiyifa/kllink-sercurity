@@ -1,5 +1,6 @@
 package com.kllink.web.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kllink.dto.User;
 import com.kllink.dto.UserQueryCondition;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 public class UserController {
     @RequestMapping(value = "/user",method = RequestMethod.GET)
+    @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition condition,@PageableDefault(page=2,size = 17,sort = "username,asc") Pageable pageable){
         System.out.println(ReflectionToStringBuilder.toString(condition, ToStringStyle.MULTI_LINE_STYLE));
         System.out.println(pageable.getPageSize());
@@ -28,6 +30,7 @@ public class UserController {
         return users;
     }
     @RequestMapping(value = "/user/{id:\\d+}",method = RequestMethod.GET)
+    @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id){
         User user = new User();
         user.setUsername("tom");
