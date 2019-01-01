@@ -38,4 +38,17 @@ public class UseControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
+    @Test
+    public void  whenGenInfoSuccess() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("tom"));
+    }
+    @Test
+    public void whenGetInfoFail() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/a")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
 }
