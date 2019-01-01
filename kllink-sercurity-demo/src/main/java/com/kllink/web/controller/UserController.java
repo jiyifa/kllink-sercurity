@@ -49,6 +49,10 @@ public class UserController {
         user.setId(1);
         return user;
     }
+    @DeleteMapping("/{id:\\d+}")
+    private void delete(@PathVariable String id){
+        System.out.println(id);
+    }
 
     @GetMapping
     @JsonView(User.UserSimpleView.class)
